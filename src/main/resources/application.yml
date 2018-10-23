@@ -1,0 +1,99 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /testSpringboot
+  session:
+     timeout: 60
+
+#log
+logging:
+  path: /log/testSpringboot
+  root: DEBUG
+  level:
+    com:
+      sunbin: DEBUG
+    org:
+      springframework:
+        web: DEBUG
+    java:
+      sql: DEBUG
+
+#config
+hello:
+  name: 孙斌
+  age: 30
+  content: name:${hello.name},age:${hello.age}
+sunbin:
+  schedule:
+    task:
+      cron: "0 * * * * ?"
+
+#devtools
+spring:
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      exclude: static/**,public/**
+
+#jsp
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+#mybatis
+  datasource:
+    url: jdbc:mysql://192.168.24.71:3306/test?characterEncoding=UTF-8
+    username: root
+    password: 
+    driver-class-name: com.mysql.jdbc.Driver
+    schema: classpath:database/schema.sql
+    data: classpath:database/data.sql
+    initialization-mode: never
+    sql-script-encoding: UTF-8
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+# REDIS (RedisProperties)
+#配置redis
+  cache:
+    type: REDIS
+    cache-names: user
+    redis:
+      time-to-live: 20s #缓存超时时间ms
+      cache-null-values: false #是否缓存空值
+  redis:
+    host: 192.168.24.92 #对应redis所在的IP地址
+    port: 6379 #redis数据库对应的端口号
+    database: 0 #使用第1个数据库，一共默认有10个(0-15)
+    jedis: #一些常规配置
+      pool:
+        max-idle: 60
+        min-idle: 30
+        max-wait: 60000
+        max-active: 200
+      timeout: 10000  #redis 连接超时时间ms
+
+#spring-session存储类型
+  session:
+    store-type: redis
+
+#mail    
+  mail:
+    #邮箱服务器地址
+    host: mail.clo.com.cn
+    #用户名
+    username: sunb@clo.com.cn
+    #密码
+    password: abc123
+    default-encoding: UTF-8
+mail:
+  from:
+    #以谁来发送邮件
+    addr: xxx@oo.com      
+#mybatis    
+mybatis:
+  mapper-locations: classpath:com/sunbin/springboot/mapper/*.xml
