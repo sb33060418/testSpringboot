@@ -90,6 +90,15 @@ spring:
     #密码
     password: abc123
     default-encoding: UTF-8
+    
+#spring boot admin client
+  boot:
+    admin:
+      url: http://localhost:8081/testSpringBootAdmin/
+      
+management:
+  security:
+    enabled: false 
 mail:
   from:
     #以谁来发送邮件
